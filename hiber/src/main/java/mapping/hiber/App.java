@@ -1,5 +1,8 @@
 package mapping.hiber;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,15 +17,22 @@ public class App
         Session sess = fact.openSession();
         Transaction tx = sess.beginTransaction();
         
-        Person p = new Person();    
-        Aadhar a = new Aadhar(1001, "btm, blr", "male", p);
-        p.setId(1);
-        p.setName("amit");
-        p.setMobile(998877);
-        p.setAadhar(a);
+        Biker biker = new Biker();
         
-        sess.persist(p);
-        sess.persist(a);
+        Bike b1 = new Bike(111, "Apache", 150000, biker);
+        Bike b2 = new Bike(222, "Yamaha", 175000, biker);
+        
+        List<Bike> bikeList = new ArrayList<Bike>();
+        bikeList.add(b1);
+        bikeList.add(b2);
+        
+        biker.setId(1);
+        biker.setName("Amit");
+        biker.setBikeList(bikeList);
+        
+        sess.persist(biker);
+        sess.persist(b1);
+        sess.persist(b2);
         
         tx.commit();
     }
