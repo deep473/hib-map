@@ -17,22 +17,45 @@ public class App
         Session sess = fact.openSession();
         Transaction tx = sess.beginTransaction();
         
-        Biker biker = new Biker();
+        Course c1 = new Course();
+        Course c2 = new Course();
+        Course c3 = new Course();
         
-        Bike b1 = new Bike(111, "Apache", 150000, biker);
-        Bike b2 = new Bike(222, "Yamaha", 175000, biker);
+        List<Course> cList1 = new ArrayList<Course>();
+        cList1.add(c1);
+        cList1.add(c2);
+        cList1.add(c3);
+        List<Course> cList2 = new ArrayList<Course>();
+        cList2.add(c2);
+        cList2.add(c3);
+       
+        Student s1 = new Student(1, "amit", cList1);
+        Student s2 = new Student(2, "sumit", cList2);
         
-        List<Bike> bikeList = new ArrayList<Bike>();
-        bikeList.add(b1);
-        bikeList.add(b2);
+        List<Student> sList1 = new ArrayList<Student>();
+        sList1.add(s1);
         
-        biker.setId(1);
-        biker.setName("Amit");
-        biker.setBikeList(bikeList);
+        List<Student> sList2 = new ArrayList<Student>();
+        sList2.add(s1);
+        sList2.add(s2);
         
-        sess.persist(biker);
-        sess.persist(b1);
-        sess.persist(b2);
+        c1.setcId(1001);
+        c1.setcName("Java");
+        c1.setStudentList(sList1);
+        
+        c2.setcId(2002);
+        c2.setcName("Python");
+        c2.setStudentList(sList2);
+        
+        c3.setcId(3003);
+        c3.setcName("Sql");
+        c3.setStudentList(sList2);
+             
+        sess.persist(s1);
+        sess.persist(s2);
+        sess.persist(c1);
+        sess.persist(c2);
+        sess.persist(c3);
         
         tx.commit();
     }
